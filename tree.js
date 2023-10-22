@@ -180,7 +180,31 @@ function Tree(array) {
             results.push(func(root.data));
 
             return results
-        }        
+        },
+        height(node) {
+            if (node === null) {
+                return -1
+            }
+            let leftHeight = this.height(node.leftChild);
+            let rightHeight = this.height(node.rightChild);
+
+            return (leftHeight > rightHeight) ? (leftHeight + 1) : (rightHeight + 1);
+        },
+        depth(root, node) {
+            if (root === null) {
+                return -1
+            }
+            let depth = -1;
+            if ((root === node) || 
+                (depth = this.depth(root.leftChild, node)) >= 0 ||
+                (depth = this.depth(root.rightChild, node)) >= 0) {
+                    return depth + 1
+                }
+            return depth  
+        },
+        isBalanced(root) {
+            
+        } 
     }
     tree.root = tree.buildTree(array)
 
