@@ -144,7 +144,11 @@ function Tree(array) {
             if (root === null) {
                 return
             }
-            this.
+            this.inorder(root.leftChild, results, func);
+            results.push(func(root.data));
+            this.inorder(root.rightChild, results, func);
+
+            return results
         },
         preorder(root, results = [], func) {
             if (!func) {
@@ -154,7 +158,7 @@ function Tree(array) {
             };
             if (root === null) {
                 return
-            }
+            };
             results.push(func(root.data));
             this.preorder(root.leftChild, results, func);
             this.preorder(root.rightChild, results, func);
@@ -162,10 +166,21 @@ function Tree(array) {
             return results
 
         },
-        postorder(root, func) {
+        postorder(root, results = [], func) {
+            if (!func) {
+                func = function(value) {
+                    return value
+                };
+            };
+            if (root === null) {
+                return
+            };
+            this.postorder(root.leftChild, results, func);
+            this.postorder(root.rightChild, results, func);
+            results.push(func(root.data));
 
-        }
-        
+            return results
+        }        
     }
     tree.root = tree.buildTree(array)
 
