@@ -203,8 +203,30 @@ function Tree(array) {
             return depth  
         },
         isBalanced(root) {
-            
-        } 
+            if (root == null) {
+                return 0
+            }
+            let leftHeight = tree.isBalanced(root.leftChild);
+            if (leftHeight == -1) {
+                return -1;
+            }
+            let rightHeight = tree.isBalanced(root.rightChild);
+            if (rightHeight == -1) {
+                return -1
+            }
+
+            if(Math.abs(leftHeight - rightHeight) > 1) {
+                return -1;
+            } else {
+                return Math.max(leftHeight, rightHeight) + 1;
+            }
+
+        },
+        rebalance(array = tree.inorder(tree.root)) {
+            tree.root = tree.buildTree(array);
+
+            return tree.root
+        }
     }
     tree.root = tree.buildTree(array)
 
